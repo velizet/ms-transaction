@@ -11,8 +11,11 @@ import reactor.core.publisher.Mono;
 @Service
 public class ActiveServiceImpl implements ActiveService {
 
-    @Autowired
-    WebClient webClient;
+    private final WebClient webClient;
+
+    public ActiveServiceImpl(WebClient.Builder webClientBuilder){
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8083").build();
+    }
 
     @Override
     public Mono<ResponseActive> findByCode(String id)
